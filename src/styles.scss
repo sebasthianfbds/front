@@ -1,0 +1,130 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$rede-social-primary: mat-palette($mat-indigo);
+$rede-social-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$rede-social-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$rede-social-theme: mat-light-theme(
+  $rede-social-primary,
+  $rede-social-accent,
+  $rede-social-warn
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($rede-social-theme);
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$client-primary: mat-palette($mat-indigo);
+$client-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$client-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$client-theme: mat-light-theme($client-primary, $client-accent, $client-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($client-theme);
+
+/* You can add global styles to this file, and also import other style files */
+:host {
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 400 14px Roboto, sans-serif;
+  color: #333;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 8px 0;
+}
+
+html,
+body {
+  font-family: Roboto, sans-serif, "Helvetica Neue" !important;
+  height: 100% !important;
+  background-color: #f0f0f5 !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+input,
+button,
+textarea {
+  font: 400 16px Roboto, sans-serif !important;
+
+  resize: none !important;
+  overflow: hidden !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  word-wrap: break-word !important;
+}
+
+button {
+  height: 30px !important;
+  cursor: pointer !important;
+}
+.mat-card {
+  background-color: #f5f5f5 !important;
+}
+mat-form-field {
+  width: 100% !important;
+}
+
+.modal-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.img-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}

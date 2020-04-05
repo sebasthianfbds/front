@@ -1,0 +1,11 @@
+<mat-form-field
+  ><textarea
+    #textarea
+    matInput
+    rows="1"
+    (keydown)="resizeTextArea($event)"
+    autofocus
+    name="{{ name }}"
+    placeholder="{{ placeholder }}"
+  ></textarea>
+</mat-form-field>

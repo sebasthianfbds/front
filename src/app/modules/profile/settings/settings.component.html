@@ -1,0 +1,13 @@
+<div>
+  <app-generic-card [title]="'Configuração'">
+    <app-form
+      #appForm
+      [formConfig]="formConfig"
+      [loadData]="settingsService.load()"
+    >
+      <button mat-button #updateButton (click)="handleUpdateSubmit()">
+        Atualizar
+      </button>
+    </app-form>
+  </app-generic-card>
+</div>

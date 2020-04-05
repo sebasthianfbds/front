@@ -1,0 +1,24 @@
+.profile-header {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+
+  &-item__avatar {
+    width: auto;
+    height: auto;
+  }
+
+  &-item__name {
+    width: 100%;
+    margin-left: 20px;
+    font-size: 25px;
+  }
+}
+
+.follow-unfollow {
+  width: 100%;
+  text-align: right;
+}

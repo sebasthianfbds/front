@@ -1,0 +1,18 @@
+<div class="container">
+  <app-new-post (onHandlePostSubmit)="onHandlePostSubmit()"></app-new-post>
+</div>
+
+<div
+  class="container timeline-news"
+  *ngIf="feedPostsWait.length > 0"
+  (click)="handleShowNewPosts()"
+>
+  {{ feedPostsWait.length }} nova(s) publicações
+</div>
+
+<!-- <app-follow-sugestion> </app-follow-sugestion> -->
+
+<app-post-container
+  [loading]="loading"
+  [posts]="feedPosts"
+></app-post-container>

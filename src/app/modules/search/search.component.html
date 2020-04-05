@@ -1,0 +1,14 @@
+<app-loading [loading]="loading"></app-loading>
+
+<div class="text" *ngIf="users.length > 0">Filtro por {{ filter }}</div>
+
+<app-generic-card *ngFor="let user of users" routerLink="/{{ user.name }}">
+  <div class="users-container">
+    <img src="{{ user.imageUrl }}" />
+    <p class="name">{{ user.name }}</p>
+  </div>
+</app-generic-card>
+
+<div *ngIf="users.length === 0">
+  Nenhum resultado encontrado para {{ filter }}
+</div>

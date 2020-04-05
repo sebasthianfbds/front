@@ -1,0 +1,25 @@
+.users-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  height: auto !important;
+  text-align: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+img {
+  width: 50px;
+  height: 50px;
+}
+.name {
+  padding-left: 20px;
+}
+
+.text {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+  text-align: center;
+}

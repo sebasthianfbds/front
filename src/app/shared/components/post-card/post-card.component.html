@@ -1,0 +1,57 @@
+<mat-card class="card">
+  <mat-card-header>
+    <img
+      mat-card-avatar
+      src="{{ post.user.imageUrl }}"
+      routerLink="/{{ post.user.name }}"
+    />
+    <div class="data">
+      <mat-card-title routerLink="/{{ post.user.name }}">{{
+        post.user.name
+      }}</mat-card-title>
+      <mat-card-subtitle>{{
+        post.date | date: "dd/MM/yyyy HH:mm:ss"
+      }}</mat-card-subtitle>
+    </div>
+
+    <div *ngIf="post.canEdit" style="cursor: pointer;">
+      <mat-icon (click)="handleDeletePost()">close</mat-icon>
+    </div>
+  </mat-card-header>
+  <mat-card-content class="post-text">
+    {{ post.text }}
+  </mat-card-content>
+  <hr />
+  <mat-card-content class="post-info">
+    <div>
+      0 curtidas
+    </div>
+    <div *ngIf="post.commentLength > 0">
+      {{ post.commentLength }} comentários
+    </div>
+  </mat-card-content>
+  <hr />
+  <mat-card-actions>
+    <button mat-button><mat-icon>thumb_up</mat-icon> &nbsp; Curtir</button>
+    <button mat-button (click)="handleShowComments()">
+      <mat-icon>comments</mat-icon> &nbsp; Comentar
+    </button>
+  </mat-card-actions>
+
+  <mat-card-content *ngIf="post.showComments">
+    <app-text-area
+      #postComment
+      [placeholder]="'Escreva um comentário'"
+      (onEnterPress)="handleSubmitComment()"
+    >
+    </app-text-area>
+    <app-loading [loading]="loadingComments"></app-loading>
+    <div class="post-comments" *ngFor="let comment of post.comments">
+      <img class="img-profile" src="{{ comment.user.imageUrl }}" />
+      &nbsp;
+      <span class="comment-text">
+        {{ comment.text }}
+      </span>
+    </div>
+  </mat-card-content>
+</mat-card>

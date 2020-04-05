@@ -1,0 +1,53 @@
+<app-loading [loading]="loading"></app-loading>
+
+<section *ngIf="!loading">
+  <div class="profile-header">
+    <div class="profile-header-item__avatar">
+      <img class="img-profile" src="{{ userData.imageUrl }}" />
+    </div>
+    <div class="profile-header-item__name">
+      {{ userData.name }}
+    </div>
+    <div *ngIf="userData.myProfile" (click)="showSettings = !showSettings">
+      <button mat-button>
+        <mat-icon>settings</mat-icon>
+        <span>Editar</span>
+      </button>
+    </div>
+    <div class="follow-unfollow" *ngIf="!userData.myProfile">
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_horiz</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button
+          [disabled]="loadingFollow"
+          mat-menu-item
+          (click)="handleFollow()"
+          *ngIf="!userData.following"
+        >
+          Seguir
+        </button>
+        <button
+          [disabled]="loadingFollow"
+          mat-menu-item
+          (click)="handleUnFollow()"
+          *ngIf="userData.following"
+        >
+          Deixar de seguir
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+
+  <app-settings
+    *ngIf="showSettings"
+    (onSubmitChange)="onSubmitChange()"
+  ></app-settings>
+
+  <app-new-post
+    *ngIf="userData.myProfile"
+    (onHandlePostSubmit)="onHandlePostSubmit($event)"
+  ></app-new-post>
+
+  <app-post-container [posts]="myPosts"></app-post-container>
+</section>

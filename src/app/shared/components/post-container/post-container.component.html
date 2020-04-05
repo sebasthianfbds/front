@@ -1,0 +1,9 @@
+<app-loading [loading]="loading"></app-loading>
+
+<div class="container">
+  <app-post-card
+    *ngFor="let post of posts"
+    [post]="post"
+    (onDeletePost)="onDeletePost($event)"
+  ></app-post-card>
+</div>

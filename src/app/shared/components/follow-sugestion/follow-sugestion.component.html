@@ -1,0 +1,19 @@
+<app-generic-card>
+  <div class="sugestion-container">
+    <div class="sugestion-container__title">
+      Mais populares
+    </div>
+    <div class="sugestion-container__content">
+      <div class="user-sugestion" *ngFor="let item of items">
+        <div class="user-sugestion__avatar">
+          <img class="img-profile2" src="{{ item.imageUrl }}" />
+        </div>
+        <div>
+          {{ item.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+</app-generic-card>
+
+<script></script>
