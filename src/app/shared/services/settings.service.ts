@@ -35,7 +35,7 @@ export class SettingsService {
           this.userData = payload;
         }),
         catchError((e) => {
-          this.snack.show({ message: e });
+          this.snack.show({ message: e, type: "D" });
           return throwError(e);
         })
       );

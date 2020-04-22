@@ -80,7 +80,7 @@ import { SearchComponent } from "./modules/search/search.component";
       enabled: environment.production,
     }),
   ],
-  providers: [SocketService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

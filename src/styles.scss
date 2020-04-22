@@ -128,3 +128,21 @@ mat-form-field {
   height: 40px;
   border-radius: 50%;
 }
+
+.snack-bar-success {
+  color: white;
+  background-color: #4bb543;
+
+  .mat-simple-snackbar-action {
+    color: white;
+  }
+}
+
+.snack-bar-danger {
+  color: white;
+  background-color: #e25353;
+
+  .mat-simple-snackbar-action {
+    color: white;
+  }
+}

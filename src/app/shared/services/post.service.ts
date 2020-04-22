@@ -23,7 +23,7 @@ export class PostService {
   publish(payload: { text: string }) {
     return this.monitor.watch(this.rest.post("post", payload)).pipe(
       catchError((e) => {
-        this.snack.show({ message: e });
+        this.snack.show({ message: e, type: "D" });
         return throwError(e);
       })
     );
@@ -32,6 +32,11 @@ export class PostService {
   delete(postId: string) {
     return this.monitor.watch(this.rest.delete("post", { id: postId }));
   }
+
+  like(postId: string) {
+    return this.monitor.watch(this.rest.post("post/like", { id: postId }));
+  }
+
   constructor(
     private rest: RestService,
     private monitor: MonitorService,

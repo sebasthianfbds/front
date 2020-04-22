@@ -17,7 +17,7 @@ import { FormComponent } from "src/app/shared/components/form/form.component";
 })
 export class SettingsComponent implements OnInit {
   loading = false;
-  @Output() onSubmitChange = new EventEmitter();
+  @Output() onSubmitChange = new EventEmitter<any>();
   @ViewChild("appForm", { static: false, read: FormComponent })
   appForm: FormComponent;
   @ViewChild("updateButton", { static: false, read: ElementRef })
@@ -58,7 +58,7 @@ export class SettingsComponent implements OnInit {
       .update(this.appForm.value)
       .subscribe(() => {
         this.onSubmitChange.emit();
-        this.snack.show({ message: "Dados alterados com sucesso." });
+        this.snack.show({ message: "Dados alterados com sucesso.", type: "S" });
       })
       .add(() => (this.updateButton.nativeElement.disabled = false));
   }

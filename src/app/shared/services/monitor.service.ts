@@ -10,7 +10,7 @@ export class MonitorService {
   watch<T>(observable: Observable<T>) {
     return observable.pipe(
       catchError((e) => {
-        this.snack.show({ message: e });
+        this.snack.show({ message: e, type: "D" });
         return throwError(e);
       })
     );

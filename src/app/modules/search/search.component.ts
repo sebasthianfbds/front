@@ -9,7 +9,7 @@ import { UserService } from "src/app/shared/services/user.service";
 })
 export class SearchComponent implements OnInit {
   loading = false;
-  users: [];
+  users: any[] = [];
   filter: string;
   constructor(
     private userService: UserService,
@@ -25,7 +25,6 @@ export class SearchComponent implements OnInit {
         .get(name)
         .subscribe((users) => {
           this.users = users;
-          console.log(users);
         })
         .add(() => (this.loading = false));
     });

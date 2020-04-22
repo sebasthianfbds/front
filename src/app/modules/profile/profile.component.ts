@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { IPost } from "src/app/core/post";
 import { SettingsService } from "src/app/shared/services/settings.service";
-import { Router, NavigationEnd } from "@angular/router";
+import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
 import { UserService } from "src/app/shared/services/user.service";
 import { map, catchError } from "rxjs/operators";
 import { throwError } from "rxjs";
@@ -37,28 +37,31 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   loadUserProfile() {
     this.loading = true;
-    const name = this.router.url.replace("/", "");
-    this.userService
-      .getUserProfile(name)
-      .pipe(
-        catchError((e) => {
-          this.router.navigate(["search/profile"], {
-            queryParams: { name: name },
-          });
-          return throwError(e);
+    this.route.params.subscribe((params) => {
+      const name = params.name;
+
+      this.userService
+        .getUserProfile(name)
+        .pipe(
+          catchError((e) => {
+            this.router.navigate(["search/profile"], {
+              queryParams: { name: name },
+            });
+            return throwError(e);
+          })
+        )
+        .subscribe((profile) => {
+          this.myPosts = profile.posts;
+          this.userData = {
+            imageUrl: profile.data.imageUrl,
+            name: profile.data.name,
+            myProfile: profile.myProfile,
+            following: profile.following,
+            _id: profile.data._id,
+          };
         })
-      )
-      .subscribe((profile) => {
-        this.myPosts = profile.posts;
-        this.userData = {
-          imageUrl: profile.data.imageUrl,
-          name: profile.data.name,
-          myProfile: profile.myProfile,
-          following: profile.following,
-          _id: profile.data._id,
-        };
-      })
-      .add(() => (this.loading = false));
+        .add(() => (this.loading = false));
+    });
   }
 
   onSubmitChange() {
@@ -91,6 +94,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     public settingsService: SettingsService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 }

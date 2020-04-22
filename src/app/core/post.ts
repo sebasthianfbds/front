@@ -6,7 +6,9 @@ export interface IPost {
   user: IPostUser;
   showComments: boolean;
   commentLength: number;
+  likesLength: number;
   canEdit: boolean;
+  liked: boolean;
 }
 
 export interface IPostUser {

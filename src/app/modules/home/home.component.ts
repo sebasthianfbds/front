@@ -28,7 +28,8 @@ export class HomeComponent implements OnInit {
     );
 
     this.swPush.notificationClicks.subscribe((options) => {
-      window.open(environment.host + options.notification.data);
+      if (options.notification.data)
+        window.open(environment.website + options.notification.data);
     });
 
     window.addEventListener("notificationclick", (event) => {});

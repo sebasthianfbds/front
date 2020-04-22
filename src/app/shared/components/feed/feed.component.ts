@@ -7,7 +7,8 @@ import { SessionService } from "../../services/session.service";
 @Component({
   selector: "app-feed",
   templateUrl: "./feed.component.html",
-  styleUrls: ["./feed.component.scss"]
+  styleUrls: ["./feed.component.scss"],
+  providers: [SocketService],
 })
 export class FeedComponent implements OnInit, OnDestroy {
   feedPosts: IPost[];
@@ -23,7 +24,8 @@ export class FeedComponent implements OnInit, OnDestroy {
     this.load();
 
     this.socket.initSocket();
-    this.socket.onEvent(SocketEvent.ON_NEW_POST).subscribe(data => {
+    this.socket.onEvent(SocketEvent.ON_NEW_POST).subscribe((data) => {
+      console.log("new post incomming");
       this.feedPostsWait.push(data[0]);
     });
     this.socket.emit(
@@ -33,6 +35,7 @@ export class FeedComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    console.log("destroy feed");
     this.socket.disconnect();
   }
 
@@ -40,7 +43,7 @@ export class FeedComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.postService
       .getAll()
-      .subscribe(posts => {
+      .subscribe((posts) => {
         this.feedPosts = posts;
       })
       .add(() => (this.loading = false));
