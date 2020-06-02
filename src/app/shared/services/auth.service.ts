@@ -5,6 +5,7 @@ import { map, catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { SessionService } from "./session.service";
 import { MonitorService } from "./monitor.service";
+import { PermissionService } from "./permission.service";
 
 @Injectable({
   providedIn: "root",
@@ -29,8 +30,9 @@ export class AuthService {
 
   login(payload: { email: string; password: string }) {
     return this.monitor.watch(this.restService.post("auth", payload)).pipe(
-      map((result) => {
-        this.sessionService.setToken(result);
+      map((result: { token: string; permission: string }) => {
+        this.permissionService.permission = result.permission;
+        this.sessionService.setToken(result.token);
         this.router.navigate(["/"]);
         return result;
       }),
@@ -65,6 +67,7 @@ export class AuthService {
     private restService: RestService,
     private router: Router,
     private sessionService: SessionService,
-    private monitor: MonitorService
+    private monitor: MonitorService,
+    private permissionService: PermissionService
   ) {}
 }

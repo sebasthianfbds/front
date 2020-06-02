@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="hasPermission()">
   <mat-card-content>
     <form>
       <app-text-area
@@ -6,7 +6,7 @@
         autofocus
         [name]="'postComment'"
         [preventEnter]="false"
-        [placeholder]="'O que você está pensando agora?'"
+        [placeholder]="'Publique seu artigo aqui!'"
       ></app-text-area>
     </form>
   </mat-card-content>

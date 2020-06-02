@@ -6,9 +6,9 @@ import {
   Output,
   EventEmitter,
 } from "@angular/core";
-import { SnackbarService } from "../../services/snackbar.service";
 import { PostService } from "../../services/post.service";
 import { TextAreaComponent } from "../text-area/text-area.component";
+import { PermissionService } from "../../services/permission.service";
 
 @Component({
   selector: "app-new-post",
@@ -48,5 +48,11 @@ export class NewPostComponent implements OnInit {
         this.postButton.nativeElement.disabled = false;
       });
   }
-  constructor(private post: PostService) {}
+  hasPermission() {
+    return this.permissionService.permission === "PESQUISADOR";
+  }
+  constructor(
+    private post: PostService,
+    private permissionService: PermissionService
+  ) {}
 }

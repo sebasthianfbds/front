@@ -63,7 +63,16 @@ export class SettingsComponent implements OnInit {
       .add(() => (this.updateButton.nativeElement.disabled = false));
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.settingsService.isPesquisador()) {
+      this.formConfig.push({
+        label: "Details",
+        name: "details",
+        type: "textarea",
+        validators: [],
+      });
+    }
+  }
   constructor(
     private snack: SnackbarService,
     public settingsService: SettingsService

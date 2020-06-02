@@ -5,7 +5,7 @@ import { FormComponent } from "src/app/shared/components/form/form.component";
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.scss"]
+  styleUrls: ["./register.component.scss"],
 })
 export class RegisterComponent implements OnInit {
   title = "Registro";
@@ -24,20 +24,36 @@ export class RegisterComponent implements OnInit {
       label: "Nome",
       name: "name",
       type: "text",
-      validators: ["required"]
+      validators: ["required"],
     },
     {
       label: "E-mail",
       name: "email",
       type: "email",
-      validators: ["email", "required"]
+      validators: ["email", "required"],
     },
     {
       label: "Password",
       name: "password",
       type: "password",
-      validators: ["required"]
-    }
+      validators: ["required"],
+    },
+    {
+      label: "Tipo",
+      name: "type",
+      type: "combobox",
+      values: [
+        {
+          value: "PESQUISADOR",
+          label: "Pesquisador",
+        },
+        {
+          value: "ALUNO",
+          label: "Aluno",
+        },
+      ],
+      validators: ["required"],
+    },
   ];
 
   constructor(private userService: UserService) {}

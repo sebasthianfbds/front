@@ -35,7 +35,6 @@ export class FeedComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log("destroy feed");
     this.socket.disconnect();
   }
 

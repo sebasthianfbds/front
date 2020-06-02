@@ -5,6 +5,7 @@ import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
 import { UserService } from "src/app/shared/services/user.service";
 import { map, catchError } from "rxjs/operators";
 import { throwError } from "rxjs";
+import { PermissionService } from "src/app/shared/services/permission.service";
 
 @Component({
   selector: "app-profile",
@@ -19,6 +20,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     name: "",
     myProfile: false,
     following: false,
+    details: "",
   };
   loading = true;
   loadingFollow = false;
@@ -58,6 +60,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
             myProfile: profile.myProfile,
             following: profile.following,
             _id: profile.data._id,
+            details: profile.data.details,
           };
         })
         .add(() => (this.loading = false));
@@ -66,6 +69,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   onSubmitChange() {
     this.showSettings = false;
+    this.userData.details = this.settingsService.userData.details;
   }
   onHandlePostSubmit(post) {
     this.userService.getUserPosts().subscribe((posts) => {
@@ -91,10 +95,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .add(() => (this.loadingFollow = false));
   }
 
+  profileType() {
+    return this.permissionService.permission;
+  }
+
   constructor(
     private userService: UserService,
     public settingsService: SettingsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private permissionService: PermissionService
   ) {}
 }

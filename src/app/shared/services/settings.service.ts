@@ -28,6 +28,7 @@ export class SettingsService {
           name: payload.name,
           password: payload.password,
           imageUrl: payload.imageUrl,
+          details: payload.details,
         })
       )
       .pipe(
@@ -47,6 +48,10 @@ export class SettingsService {
         return user;
       })
     );
+  }
+
+  isPesquisador() {
+    return this.userData.type === "PESQUISADOR";
   }
   constructor(
     private snack: SnackbarService,

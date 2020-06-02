@@ -3,13 +3,13 @@ import {
   FormGroup,
   FormBuilder,
   Validators,
-  FormControl
+  FormControl,
 } from "@angular/forms";
 
 @Component({
   selector: "app-form",
   templateUrl: "./form.component.html",
-  styleUrls: ["./form.component.scss"]
+  styleUrls: ["./form.component.scss"],
 })
 export class FormComponent implements OnInit {
   loading = false;
@@ -38,11 +38,11 @@ export class FormComponent implements OnInit {
   @Input() set loadData(funcao: any) {
     if (!this.dataLoaded) {
       funcao
-        .subscribe(data => {
+        .subscribe((data) => {
           for (let field of this._config) {
             if (!data[field.name]) data[field.name] = "";
           }
-          Object.getOwnPropertyNames(data).forEach(attr => {
+          Object.getOwnPropertyNames(data).forEach((attr) => {
             if (!this._formGroup.contains(attr)) delete data[attr];
           });
           this._formGroup.setValue(data);

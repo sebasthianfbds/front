@@ -37,6 +37,9 @@ import { ConfirmDialogComponent } from "./shared/components/confirm-dialog/confi
 import { FollowSugestionComponent } from "./shared/components/follow-sugestion/follow-sugestion.component";
 import { TextAreaComponent } from "./shared/components/text-area/text-area.component";
 import { SearchComponent } from "./modules/search/search.component";
+import { MatSelectModule } from "@angular/material/select";
+import { MatChipsModule } from "@angular/material/chips";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,6 +79,8 @@ import { SearchComponent } from "./modules/search/search.component";
     ReactiveFormsModule,
     MatProgressBarModule,
     MatDialogModule,
+    MatSelectModule,
+    MatChipsModule,
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production,
     }),

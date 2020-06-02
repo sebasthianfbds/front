@@ -3,11 +3,34 @@
 <form [formGroup]="_formGroup">
   <mat-form-field *ngFor="let field of _config">
     <mat-label>{{ field.label }}</mat-label>
+
+    <mat-select
+      *ngIf="field.type === 'combobox'"
+      formControlName="{{ field.name }}"
+    >
+      <mat-option *ngFor="let value of field.values" [value]="value.value">
+        {{ value.label }}
+      </mat-option>
+    </mat-select>
+
+    <textarea
+      *ngIf="field.type === 'textarea'"
+      matInput
+      formControlName="{{ field.name }}"
+    >
+    </textarea>
+
     <input
+      *ngIf="
+        field.type === 'text' ||
+        field.type === 'password' ||
+        field.type === 'email'
+      "
       matInput
       type="{{ field.type }}"
       formControlName="{{ field.name }}"
     />
+
     <mat-error *ngFor="let validator of field.validators">
       <span *ngIf="formError(field.name, validator)">{{
         getErrorMessage(validator)

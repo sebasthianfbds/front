@@ -3,4 +3,6 @@ export interface IUserSettings {
   email: string;
   password?: string;
   imageUrl?: string;
+  details?: string;
+  type: string;
 }

@@ -8,6 +8,16 @@
     <div class="profile-header-item__name">
       {{ userData.name }}
     </div>
+
+    <div class="profile-header-item__tag">
+      <mat-chip *ngIf="settingsService.isPesquisador()" color="primary" selected
+        >Pesquisador</mat-chip
+      >
+      <mat-chip *ngIf="!settingsService.isPesquisador()" color="accent" selected
+        >Aluno</mat-chip
+      >
+    </div>
+
     <div *ngIf="userData.myProfile" (click)="showSettings = !showSettings">
       <button mat-button>
         <mat-icon>settings</mat-icon>
@@ -43,6 +53,10 @@
     *ngIf="showSettings"
     (onSubmitChange)="onSubmitChange()"
   ></app-settings>
+
+  <div *ngIf="settingsService.isPesquisador()">
+    {{ userData?.details || "Nenhuma informação adicionada pelo pesquisador." }}
+  </div>
 
   <app-new-post
     *ngIf="userData.myProfile"
