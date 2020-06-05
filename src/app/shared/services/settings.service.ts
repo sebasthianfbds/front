@@ -33,10 +33,7 @@ export class SettingsService {
       )
       .pipe(
         map(() => {
-          this.userData.name = payload.name;
-          this.userData.password = payload.password;
-          this.userData.imageUrl = payload.imageUrl;
-          this.userData.details = payload.details;
+          this.userData = payload;
         }),
         catchError((e) => {
           this.snack.show({ message: e, type: "D" });
@@ -48,7 +45,6 @@ export class SettingsService {
     return this.monitor.watch(this.restService.get("user/settings")).pipe(
       map((user) => {
         this.userData = user;
-        console.log(user);
         return user;
       })
     );
