@@ -33,7 +33,10 @@ export class SettingsService {
       )
       .pipe(
         map(() => {
-          this.userData = payload;
+          this.userData.name=payload.name;
+          this.userData.password=payload.password;
+          this.userData.imageUrl=payload.imageUrl;
+          this.userData.details=payload.details;
         }),
         catchError((e) => {
           this.snack.show({ message: e, type: "D" });
