@@ -24,7 +24,38 @@
     />
     <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#1976d2" />
+    <script
+      id="ze-snippet"
+      src="https://static.zdassets.com/ekr/snippet.js?key=8c032974-d997-4bb9-876c-1a9a45fe6e14"
+    ></script>
   </head>
+  <script type="text/javascript">
+    zE("webWidget", "setLocale", "pt-br");
+    zE("webWidget", "hide");
+    window.zESettings = {
+      webWidget: {
+        chat: {
+          suppress: true,
+        },
+        answerBot: {
+          suppress: true,
+        },
+        talk: {
+          suppress: true,
+        },
+        contactForm: {
+          suppress: false,
+          ticketForms: [{ id: 360000883491 }],
+        },
+        helpCenter: {
+          originalArticleButton: true,
+        },
+        authenticate: {
+          jwt: null,
+        },
+      },
+    };
+  </script>
   <body>
     <app-root></app-root>
   </body>

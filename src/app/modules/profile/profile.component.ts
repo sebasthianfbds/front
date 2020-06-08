@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     myProfile: false,
     following: false,
     details: "",
+    type: "",
   };
   loading = true;
   loadingFollow = false;
@@ -61,6 +62,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
             following: profile.following,
             _id: profile.data._id,
             details: profile.data.details,
+            type: profile.data.type,
           };
         })
         .add(() => (this.loading = false));
@@ -69,7 +71,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   onSubmitChange() {
     this.showSettings = false;
+    console.log(this.settingsService.userData);
     this.userData.details = this.settingsService.userData.details;
+    console.log(this.settingsService.userData);
   }
   onHandlePostSubmit(post) {
     this.userService.getUserPosts().subscribe((posts) => {

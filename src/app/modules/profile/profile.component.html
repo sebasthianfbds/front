@@ -3,17 +3,20 @@
 <section *ngIf="!loading">
   <div class="profile-header">
     <div class="profile-header-item__avatar">
-      <img class="img-profile" src="{{ userData.imageUrl }}" />
+      <img
+        class="img-profile"
+        src="{{ userData.imageUrl || 'assets/profile.png' }}"
+      />
     </div>
     <div class="profile-header-item__name">
       {{ userData.name }}
     </div>
 
     <div class="profile-header-item__tag">
-      <mat-chip *ngIf="settingsService.isPesquisador()" color="primary" selected
+      <mat-chip *ngIf="userData.type === 'PESQUISADOR'" color="primary" selected
         >Pesquisador</mat-chip
       >
-      <mat-chip *ngIf="!settingsService.isPesquisador()" color="accent" selected
+      <mat-chip *ngIf="userData.type === 'ALUNO'" color="accent" selected
         >Aluno</mat-chip
       >
     </div>

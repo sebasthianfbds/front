@@ -6,7 +6,10 @@
     <div class="sugestion-container__content">
       <div class="user-sugestion" *ngFor="let item of items">
         <div class="user-sugestion__avatar">
-          <img class="img-profile2" src="{{ item.imageUrl }}" />
+          <img
+            class="img-profile2"
+            src="{{ item.imageUrl || 'assets/profile.png' }}"
+          />
         </div>
         <div>
           {{ item.name }}

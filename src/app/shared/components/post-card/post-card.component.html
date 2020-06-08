@@ -2,7 +2,7 @@
   <mat-card-header>
     <img
       mat-card-avatar
-      src="{{ post.user.imageUrl }}"
+      src="{{ post.user.imageUrl || 'assets/profile.png' }}"
       routerLink="/{{ post.user.name }}"
     />
     <div class="data">
@@ -47,7 +47,10 @@
     </app-text-area>
     <app-loading [loading]="loadingComments"></app-loading>
     <div class="post-comments" *ngFor="let comment of post.comments">
-      <img class="img-profile" src="{{ comment.user.imageUrl }}" />
+      <img
+        class="img-profile"
+        src="{{ comment.user.imageUrl || 'assets/profile.png' }}"
+      />
       &nbsp;
       <span class="comment-text">
         {{ comment.text }}

@@ -4,7 +4,7 @@
 
 <app-generic-card *ngFor="let user of users" routerLink="/{{ user.name }}">
   <div class="users-container">
-    <img src="{{ user.imageUrl }}" />
+    <img src="{{ user.imageUrl || 'assets/profile.png' }}" />
     <p class="name">{{ user.name }}</p>
   </div>
 </app-generic-card>

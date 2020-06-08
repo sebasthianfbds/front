@@ -20,7 +20,7 @@
     <img
       class="img-profile"
       [matMenuTriggerFor]="menu"
-      src="{{ settingsService.userData.imageUrl }}"
+      src="{{ settingsService.userData.imageUrl || 'assets/profile.png' }}"
       alt="User Avatar"
     />
   </div>
