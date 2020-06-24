@@ -17,10 +17,28 @@
     <div *ngIf="post.canEdit" style="cursor: pointer;">
       <mat-icon (click)="handleDeletePost()">close</mat-icon>
     </div>
+
+    <div *ngIf="post.canEdit" style="cursor: pointer;">
+      <mat-icon (click)="handleEditPost()">edit</mat-icon>
+    </div>
   </mat-card-header>
+
   <mat-card-content class="post-text">
-    {{ post.text }}
+    <div id="div-post-text" contentEditable="{{ post.canEdit }}">
+      {{ post.text }}
+    </div>
   </mat-card-content>
+
+  <div
+    *ngIf="post.pdf"
+    style="cursor: pointer; text-decoration: underline;"
+    (click)="download()"
+  >
+    <br />
+    baixe agora o artigo
+    <br />
+  </div>
+  <br />
   <hr />
   <mat-card-content class="post-info">
     <div>{{ post.likesLength }} curtidas</div>
@@ -51,8 +69,14 @@
         class="img-profile"
         src="{{ comment.user.imageUrl || 'assets/profile.png' }}"
       />
+
       &nbsp;
       <span class="comment-text">
+        <span
+          style="text-decoration: underline; color: #2078f4; cursor: pointer;"
+          routerLink="/{{ comment.user.name }}"
+          >{{ comment.user.name }}</span
+        >
         {{ comment.text }}
       </span>
     </div>

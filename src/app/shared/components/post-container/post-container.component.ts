@@ -28,6 +28,18 @@ export class PostCcontainerComponent implements OnInit {
           });
       });
   }
+  onEditPost(post: IPost) {
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        data: {
+          message: "Editar publicação?",
+        },
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) this.postService.edit(post).subscribe();
+      });
+  }
   constructor(private postService: PostService, private dialog: MatDialog) {}
 
   ngOnInit(): void {}

@@ -21,6 +21,15 @@ export class SettingsService {
     return this._userData;
   }
 
+  file(file: FormData) {
+    return this.monitor.watch(this.restService.post("user/file", file)).pipe(
+      catchError((e) => {
+        this.snack.show({ message: e, type: "D" });
+        return throwError(e);
+      })
+    );
+  }
+
   update(payload: IUserSettings) {
     return this.monitor
       .watch(
@@ -45,13 +54,19 @@ export class SettingsService {
       );
   }
   load(): Observable<IUserSettings> {
-    return this.monitor.watch(this.restService.get("user/settings")).pipe(
-      map((user) => {
-        this.userData = user;
-        console.log(user);
-        return user;
-      })
-    );
+    return this.monitor
+      .watch<IUserSettings>(this.restService.get("user/settings"))
+      .pipe(
+        map((user) => {
+          this.userData = user;
+          // console.log(user);
+          return user;
+        })
+      );
+  }
+
+  download() {
+    return this.restService.getFile("user/download");
   }
 
   isPesquisador() {

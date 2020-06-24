@@ -25,7 +25,7 @@ export class FeedComponent implements OnInit, OnDestroy {
 
     this.socket.initSocket();
     this.socket.onEvent(SocketEvent.ON_NEW_POST).subscribe((data) => {
-      console.log("new post incomming");
+      // console.log("new post incomming");
       this.feedPostsWait.push(data[0]);
     });
     this.socket.emit(

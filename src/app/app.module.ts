@@ -39,6 +39,33 @@ import { TextAreaComponent } from "./shared/components/text-area/text-area.compo
 import { SearchComponent } from "./modules/search/search.component";
 import { MatSelectModule } from "@angular/material/select";
 import { MatChipsModule } from "@angular/material/chips";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  NativeDateAdapter,
+} from "@angular/material/core";
+import { formatDate } from "@angular/common";
+
+export const PICK_FORMATS = {
+  parse: { dateInput: { month: "numeric", year: "numeric", day: "numeric" } },
+  display: {
+    dateInput: "input",
+    monthYearLabel: { year: "numeric", month: "numeric" },
+    dateA11yLabel: { year: "numeric", month: "numeric", day: "numeric" },
+    monthYearA11yLabel: { year: "numeric", month: "numeric" },
+  },
+};
+
+class PickDateAdapter extends NativeDateAdapter {
+  format(date: Date, displayFormat: Object): string {
+    if (displayFormat === "input") {
+      return formatDate(date, "dd-MM-yyyy", this.locale);
+    } else {
+      return date.toDateString();
+    }
+  }
+}
 
 @NgModule({
   declarations: [
@@ -63,6 +90,7 @@ import { MatChipsModule } from "@angular/material/chips";
     SearchComponent,
   ],
   imports: [
+    MatDatepickerModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -85,7 +113,10 @@ import { MatChipsModule } from "@angular/material/chips";
       enabled: environment.production,
     }),
   ],
-  providers: [],
+  providers: [
+    { provide: DateAdapter, useClass: PickDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

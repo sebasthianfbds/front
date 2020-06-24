@@ -1,22 +1,24 @@
 <app-generic-card>
   <div class="sugestion-container">
     <div class="sugestion-container__title">
-      Mais populares
+      Sugestões
     </div>
     <div class="sugestion-container__content">
-      <div class="user-sugestion" *ngFor="let item of items">
+      <div
+        class="user-sugestion"
+        *ngFor="let item of items"
+        routerLink="/{{ item.name }}"
+      >
         <div class="user-sugestion__avatar">
           <img
             class="img-profile2"
-            src="{{ item.imageUrl || 'assets/profile.png' }}"
+            src="{{ item.imageUrl || 'assets/icons/icon-72x72.png' }}"
           />
         </div>
-        <div>
+        <div style="text-align: center;">
           {{ item.name }}
         </div>
       </div>
     </div>
   </div>
 </app-generic-card>
-
-<script></script>

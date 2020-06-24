@@ -8,16 +8,12 @@ import { FormComponent } from "src/app/shared/components/form/form.component";
   styleUrls: ["./register.component.scss"],
 })
 export class RegisterComponent implements OnInit {
+  constructor(private userService: UserService) {}
   title = "Registro";
   @ViewChild("appForm", { static: false, read: FormComponent })
   appForm: FormComponent;
   @ViewChild("loginButton", { static: false, read: ElementRef })
   registerButton: ElementRef<HTMLButtonElement>;
-
-  handleRegister() {
-    if (this.appForm.invalid) return;
-    this.userService.register(this.appForm.value).subscribe();
-  }
 
   formConfig = [
     {
@@ -39,6 +35,18 @@ export class RegisterComponent implements OnInit {
       validators: ["required"],
     },
     {
+      label: "País",
+      name: "pais",
+      type: "text",
+      validators: ["required"],
+    },
+    {
+      label: "Estado",
+      name: "estado",
+      type: "text",
+      validators: ["required"],
+    },
+    {
       label: "Tipo",
       name: "type",
       type: "combobox",
@@ -54,9 +62,46 @@ export class RegisterComponent implements OnInit {
       ],
       validators: ["required"],
     },
+    {
+      label: "Data de Nascimento",
+      name: "data",
+      type: "date",
+      validators: [],
+    },
+    {
+      label: "Data inicio carreira",
+      name: "datai",
+      type: "date",
+      validators: [],
+    },
+    {
+      label: "Topicos de interesse",
+      name: "interesses",
+      type: "multicombobox",
+      values: [
+        { value: "artificial intelligence", label: "artificial intelligence" },
+        { value: "backpropagation", label: "backpropagation" },
+        { value: "algorithm", label: "algorithm" },
+        { value: "binomial distribution", label: "binomial distribution" },
+        { value: "chi-square test", label: "chi-square test" },
+        { value: "Bayesian network", label: "Bayesian network" },
+        { value: "Bayes' Theorem", label: "Bayes' Theorem" },
+        { value: "bias", label: "bias" },
+        { value: "Big Data", label: "Big Data" },
+        { value: "AngularJS", label: "AngularJS" },
+      ],
+      validators: [],
+    },
   ];
 
-  constructor(private userService: UserService) {}
+  handleRegister() {
+    if (this.appForm.invalid) return;
+    let data = new Date(this.appForm.value["data"]).getFullYear();
+    if (data > 2002) return;
+    let pais = (this.appForm.value["pais"] || ("" as string)).toUpperCase();
+    if (pais !== "BRASIL") return;
+    this.userService.register(this.appForm.value).subscribe();
+  }
 
   ngOnInit(): void {}
 }

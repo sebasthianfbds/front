@@ -9,6 +9,7 @@ import {
 import { PostService } from "../../services/post.service";
 import { TextAreaComponent } from "../text-area/text-area.component";
 import { PermissionService } from "../../services/permission.service";
+import { SettingsService } from "../../services/settings.service";
 
 @Component({
   selector: "app-new-post",
@@ -39,20 +40,33 @@ export class NewPostComponent implements OnInit {
       .publish({
         text: value,
       })
-      .subscribe(() => {
+      .subscribe((result) => {
         this.onHandlePostSubmit.emit(this.postComment.value);
         this.postComment.value = "";
         this.postComment.focus();
+
+        if (this.pdf) this.post.file(this.pdf, result).subscribe();
       })
       .add(() => {
         this.postButton.nativeElement.disabled = false;
       });
   }
   hasPermission() {
-    return this.permissionService.permission === "PESQUISADOR";
+    return this.permissionService.isPesquisador();
+  }
+
+  pdf: FormData;
+  fileChange(event) {
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let formData: FormData = new FormData();
+      formData.append("file", file);
+      this.pdf = formData;
+    }
   }
   constructor(
     private post: PostService,
-    private permissionService: PermissionService
+    private permissionService: SettingsService
   ) {}
 }

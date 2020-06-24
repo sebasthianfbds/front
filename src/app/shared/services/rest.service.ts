@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
-import { take, catchError } from "rxjs/operators";
+import { take, catchError, map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { Observable, throwError } from "rxjs";
 import { SessionService } from "./session.service";
@@ -10,6 +10,21 @@ import { Router } from "@angular/router";
   providedIn: "root",
 })
 export class RestService {
+  getFile(path: string, body?: any, header?: any): Observable<any> {
+    let opts = {
+      params: new HttpParams(),
+      headers: this.createHeader(header),
+      responseType: "arraybuffer",
+    };
+    if (body) {
+      Object.getOwnPropertyNames(body).forEach((attr) => {
+        opts.params = opts.params.append(attr, body[attr]);
+      });
+    }
+    return this.http
+      .get(environment.host + path, opts as any)
+      .pipe(catchError((e) => this.catchRequestError(e)));
+  }
   get<T extends any>(path: string, body?: any, header?: any): Observable<T> {
     let opts = {
       params: new HttpParams(),

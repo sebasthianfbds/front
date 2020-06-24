@@ -9,6 +9,16 @@
         [placeholder]="'Publique seu artigo aqui!'"
       ></app-text-area>
     </form>
+    <br />
+    <div>
+      <input
+        style="margin-bottom: 15px;"
+        type="file"
+        (change)="fileChange($event)"
+        placeholder="Upload file"
+        accept=".pdf"
+      />
+    </div>
   </mat-card-content>
   <mat-card-actions>
     <button #postButton mat-button (click)="handlePostSubmit()">

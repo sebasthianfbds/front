@@ -76,6 +76,7 @@ export class FormComponent implements OnInit {
       return "";
     }
   }
+  onFileSelected(fieldName) {}
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {}

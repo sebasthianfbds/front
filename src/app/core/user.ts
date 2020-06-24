@@ -5,4 +5,5 @@ export interface IUserSettings {
   imageUrl?: string;
   details?: string;
   type: string;
+  pdf?: string;
 }

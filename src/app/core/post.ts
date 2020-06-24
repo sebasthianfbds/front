@@ -9,6 +9,7 @@ export interface IPost {
   likesLength: number;
   canEdit: boolean;
   liked: boolean;
+  pdf?: string;
 }
 
 export interface IPostUser {

@@ -60,6 +60,7 @@
   <div *ngIf="settingsService.isPesquisador()">
     {{ userData?.details || "Nenhuma informação adicionada pelo pesquisador." }}
   </div>
+  <br />
 
   <app-new-post
     *ngIf="userData.myProfile"

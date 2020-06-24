@@ -10,6 +10,19 @@ import { SnackbarService } from "./snackbar.service";
   providedIn: "root",
 })
 export class PostService {
+  download(postId) {
+    return this.rest.getFile("post/download", {}, { POST_ID: postId });
+  }
+  file(file: FormData, postId: any) {
+    return this.monitor
+      .watch(this.rest.post("post/file", file, { POST_ID: postId }))
+      .pipe(
+        catchError((e) => {
+          this.snack.show({ message: e, type: "D" });
+          return throwError(e);
+        })
+      );
+  }
   getAll() {
     return this.monitor.watch(this.rest.get<IPost[]>("post")).pipe(
       map((posts) => {
@@ -22,6 +35,14 @@ export class PostService {
   }
   publish(payload: { text: string }) {
     return this.monitor.watch(this.rest.post("post", payload)).pipe(
+      catchError((e) => {
+        this.snack.show({ message: e, type: "D" });
+        return throwError(e);
+      })
+    );
+  }
+  edit(payload: IPost) {
+    return this.monitor.watch(this.rest.put("post", payload)).pipe(
       catchError((e) => {
         this.snack.show({ message: e, type: "D" });
         return throwError(e);

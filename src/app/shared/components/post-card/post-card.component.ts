@@ -13,6 +13,7 @@ import { CommentService } from "../../services/comment.service";
 import { SocketService, SocketEvent } from "../../services/socket.service";
 import { TextAreaComponent } from "../text-area/text-area.component";
 import { PostService } from "../../services/post.service";
+import * as FileSaver from "file-saver";
 
 @Component({
   selector: "app-post-card",
@@ -24,11 +25,12 @@ export class PostCardComponent implements OnInit, OnDestroy {
   @Input() post: IPost;
   loadingComments = false;
   @Output() onDeletePost = new EventEmitter<IPost>();
+  @Output() onEditPost = new EventEmitter<IPost>();
 
   @ViewChild("postComment", { static: false, read: TextAreaComponent })
   postComment: TextAreaComponent;
   processing = false;
-
+  editing = false;
   handleSubmitComment() {
     if (this.processing || !this.postComment.value) return;
     this.processing = true;
@@ -82,6 +84,20 @@ export class PostCardComponent implements OnInit, OnDestroy {
     this.postService.like(this.post._id).subscribe(() => {
       this.post.liked ? this.post.likesLength-- : this.post.likesLength++;
       this.post.liked = !this.post.liked;
+    });
+  }
+
+  handleEditPost() {
+    this.post.text = document.getElementById("div-post-text").innerHTML;
+    this.onEditPost.emit(this.post);
+  }
+
+  download() {
+    this.postService.download(this.post._id).subscribe((result) => {
+      let blob: any = new Blob([result], {
+        type: "text/json; charset=utf-8",
+      });
+      FileSaver.saveAs(blob, this.post.pdf);
     });
   }
 

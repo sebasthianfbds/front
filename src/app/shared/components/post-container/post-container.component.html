@@ -5,5 +5,6 @@
     *ngFor="let post of posts"
     [post]="post"
     (onDeletePost)="onDeletePost($event)"
+    (onEditPost)="onEditPost($event)"
   ></app-post-card>
 </div>

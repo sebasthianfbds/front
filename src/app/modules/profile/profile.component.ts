@@ -71,9 +71,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   onSubmitChange() {
     this.showSettings = false;
-    console.log(this.settingsService.userData);
     this.userData.details = this.settingsService.userData.details;
-    console.log(this.settingsService.userData);
   }
   onHandlePostSubmit(post) {
     this.userService.getUserPosts().subscribe((posts) => {

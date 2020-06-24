@@ -9,6 +9,7 @@ import {
 import { SnackbarService } from "src/app/shared/services/snackbar.service";
 import { SettingsService } from "src/app/shared/services/settings.service";
 import { FormComponent } from "src/app/shared/components/form/form.component";
+import * as FileSaver from "file-saver";
 
 @Component({
   selector: "app-settings",
@@ -22,6 +23,7 @@ export class SettingsComponent implements OnInit {
   appForm: FormComponent;
   @ViewChild("updateButton", { static: false, read: ElementRef })
   updateButton: ElementRef<HTMLButtonElement>;
+  pdf;
 
   formConfig = [
     {
@@ -48,11 +50,28 @@ export class SettingsComponent implements OnInit {
       type: "text",
       validators: [],
     },
+    {
+      label: "Curriculo",
+      name: "pdf",
+      type: "text",
+      validators: [],
+      readOnly: true,
+      click: () => {
+        this.settingsService.download().subscribe((result: any) => {
+          let blob: any = new Blob([result], {
+            type: "text/json; charset=utf-8",
+          });
+          FileSaver.saveAs(blob, this.appForm.value["pdf"]);
+        });
+      },
+    },
   ];
 
   handleUpdateSubmit() {
     if (this.appForm.invalid) return;
     this.updateButton.nativeElement.disabled = true;
+
+    if (this.pdf) this.settingsService.file(this.pdf).subscribe();
 
     this.settingsService
       .update(this.appForm.value)
@@ -63,6 +82,15 @@ export class SettingsComponent implements OnInit {
       .add(() => (this.updateButton.nativeElement.disabled = false));
   }
 
+  fileChange(event) {
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let formData: FormData = new FormData();
+      formData.append("file", file);
+      this.pdf = formData;
+    }
+  }
   ngOnInit() {
     if (this.settingsService.isPesquisador()) {
       this.formConfig.push({

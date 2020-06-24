@@ -33,19 +33,21 @@ export class UserService {
       this.restService.post("user/unfollow", { userId: userId })
     );
   }
-  getUserProfile(name: string) {
-    return this.restService.get("user/profile", { name: name }).pipe(
-      map((profile) => {
-        profile.posts.map((post) => {
-          post.showComments = false;
-          return post;
-        });
-        return profile;
-      }),
-      catchError((e) => {
-        return throwError(e);
-      })
-    );
+  getUserProfile(name: string): Observable<any> {
+    return this.restService
+      .get<any>("user/profile", { name: name })
+      .pipe(
+        map((profile) => {
+          profile.posts.map((post) => {
+            post.showComments = false;
+            return post;
+          });
+          return profile;
+        }),
+        catchError((e) => {
+          return throwError(e);
+        })
+      );
   }
   getUserPosts() {
     return this.monitor.watch(this.restService.get<IPost[]>("post/user")).pipe(
@@ -65,6 +67,9 @@ export class UserService {
         return result;
       })
     );
+  }
+  sugestion() {
+    return this.monitor.watch(this.restService.get("user/sugestion"));
   }
   constructor(
     private restService: RestService,
