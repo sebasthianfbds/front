@@ -33,7 +33,14 @@ export class PostService {
       })
     );
   }
-  publish(payload: { text: string }) {
+  publish(payload: {
+    text: string;
+    title: string;
+    datep: string;
+    locale: string;
+    url: string;
+    wordsKey: string;
+  }) {
     return this.monitor.watch(this.rest.post("post", payload)).pipe(
       catchError((e) => {
         this.snack.show({ message: e, type: "D" });

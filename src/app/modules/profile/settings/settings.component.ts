@@ -9,7 +9,6 @@ import {
 import { SnackbarService } from "src/app/shared/services/snackbar.service";
 import { SettingsService } from "src/app/shared/services/settings.service";
 import { FormComponent } from "src/app/shared/components/form/form.component";
-import * as FileSaver from "file-saver";
 
 @Component({
   selector: "app-settings",
@@ -56,14 +55,6 @@ export class SettingsComponent implements OnInit {
       type: "text",
       validators: [],
       readOnly: true,
-      click: () => {
-        this.settingsService.download().subscribe((result: any) => {
-          let blob: any = new Blob([result], {
-            type: "text/json; charset=utf-8",
-          });
-          FileSaver.saveAs(blob, this.appForm.value["pdf"]);
-        });
-      },
     },
   ];
 

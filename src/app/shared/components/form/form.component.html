@@ -5,7 +5,6 @@
     <mat-label>{{ field.label }}</mat-label>
 
     <mat-select
-      (click)="field.click()"
       *ngIf="field.type === 'combobox'"
       formControlName="{{ field.name }}"
     >
@@ -15,7 +14,6 @@
     </mat-select>
 
     <mat-select
-      (click)="field.click()"
       *ngIf="field.type === 'multicombobox'"
       formControlName="{{ field.name }}"
       multiple
@@ -30,7 +28,6 @@
       matInput
       formControlName="{{ field.name }}"
       style="min-height: 250px;"
-      (click)="field.click()"
     >
     </textarea>
 
@@ -40,13 +37,11 @@
       [matDatepicker]="picker"
       placeholder="Selecione uma data"
       formControlName="{{ field.name }}"
-      (click)="field.click()"
     />
     <mat-datepicker-toggle
       *ngIf="field.type === 'date'"
       matSuffix
       [for]="picker"
-      (click)="field.click()"
     ></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
 
@@ -59,7 +54,6 @@
       matInput
       type="{{ field.type }}"
       formControlName="{{ field.name }}"
-      (click)="field.click()"
     />
 
     <mat-error *ngFor="let validator of field.validators">

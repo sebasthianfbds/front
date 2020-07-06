@@ -89,6 +89,12 @@ export class PostCardComponent implements OnInit, OnDestroy {
 
   handleEditPost() {
     this.post.text = document.getElementById("div-post-text").innerHTML;
+    this.post.title = document.getElementById("div-post-title").innerHTML;
+    this.post.locale = document.getElementById("div-post-locale").innerHTML;
+    this.post.url = document.getElementById("div-post-url").innerHTML;
+    this.post.wordsKey = document.getElementById("div-post-wordsKey").innerHTML;
+    this.post.datep = document.getElementById("div-post-datep").innerHTML;
+
     this.onEditPost.emit(this.post);
   }
 

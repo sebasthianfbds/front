@@ -36,6 +36,20 @@
 .post-text {
   margin-top: 5px;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+
+  .item {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    justify-content: space-between;
+
+    .text {
+      width: 100%;
+    }
+  }
 
   .text {
     width: 100%;

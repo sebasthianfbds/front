@@ -6,11 +6,21 @@ import { UserService } from "src/app/shared/services/user.service";
 import { map, catchError } from "rxjs/operators";
 import { throwError } from "rxjs";
 import { PermissionService } from "src/app/shared/services/permission.service";
+import { trigger, transition, style, animate } from "@angular/animations";
 
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.component.html",
   styleUrls: ["./profile.component.scss"],
+  animations: [
+    trigger("fadeInOut", [
+      transition(":enter", [
+        style({ opacity: 0 }),
+        animate(500, style({ opacity: 1 })),
+      ]),
+      transition(":leave", [animate(500, style({ opacity: 0 }))]),
+    ]),
+  ],
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   myPosts: IPost[];
@@ -22,6 +32,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     following: false,
     details: "",
     type: "",
+    pdf: "",
   };
   loading = true;
   loadingFollow = false;
@@ -47,7 +58,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         .getUserProfile(name)
         .pipe(
           catchError((e) => {
-            this.router.navigate(["search/profile"], {
+            this.router.navigate(["/feed/search/profile"], {
               queryParams: { name: name },
             });
             return throwError(e);
@@ -63,6 +74,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
             _id: profile.data._id,
             details: profile.data.details,
             type: profile.data.type,
+            pdf: profile.data.pdf,
           };
         })
         .add(() => (this.loading = false));
@@ -99,6 +111,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   profileType() {
     return this.permissionService.permission;
+  }
+
+  download() {
+    if (this.userData.pdf) this.settingsService.download(this.userData.pdf);
   }
 
   constructor(

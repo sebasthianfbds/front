@@ -4,14 +4,14 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
-  Router
+  Router,
 } from "@angular/router";
 import { Observable, throwError } from "rxjs";
 import { AuthService } from "../services/auth.service";
 import { map, catchError } from "rxjs/operators";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class LoggedInGuard implements CanActivate {
   canActivate(
@@ -23,7 +23,7 @@ export class LoggedInGuard implements CanActivate {
     | boolean
     | UrlTree {
     return this.auth.tokenIsValid().pipe(
-      map(loggedIn => {
+      map((loggedIn) => {
         //console.log("loggedIn", loggedIn);
         if (!loggedIn) this.router.navigate(["login"]);
         return loggedIn;

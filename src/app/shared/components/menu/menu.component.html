@@ -1,5 +1,5 @@
 <mat-card class="toolbar">
-  <div class="toolbar-title" routerLink="/">
+  <div class="toolbar-title" routerLink="/feed">
     Feed
   </div>
   <div class="toolbar-search">
@@ -27,9 +27,14 @@
 </mat-card>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item routerLink="/{{ settingsService.userData.name }}">
+  <button mat-menu-item routerLink="/feed/{{ settingsService.userData.name }}">
     <mat-icon>account_circle</mat-icon>
     <span>Meu perfil</span>
+  </button>
+
+  <button mat-menu-item routerLink="/dashboard" *ngIf="settingsService.isAdm()">
+    <mat-icon>dashboard</mat-icon>
+    <span>Dashboard</span>
   </button>
 
   <button mat-menu-item (click)="authService.logout()">

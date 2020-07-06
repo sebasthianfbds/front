@@ -33,7 +33,7 @@ export class AuthService {
       map((result: { token: string; permission: string }) => {
         this.permissionService.permission = result.permission;
         this.sessionService.setToken(result.token);
-        this.router.navigate(["/"]);
+        this.router.navigate(["/feed"]);
         return result;
       }),
       catchError((e) => {
@@ -59,7 +59,7 @@ export class AuthService {
     });
   }
 
-  isLoggedIn() {
+  isLoggedIn(): Observable<boolean> {
     return this.restService.get("auth/loggedIn", {});
   }
 

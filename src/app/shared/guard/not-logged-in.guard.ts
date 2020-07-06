@@ -25,7 +25,7 @@ export class NotLoggedInGuard implements CanActivate {
     | UrlTree {
     return this.auth.tokenIsValid().pipe(
       map((loggedIn) => {
-        if (loggedIn) this.router.navigate(["/"]);
+        if (loggedIn) this.router.navigate(["/feed"]);
 
         return !loggedIn;
       }),

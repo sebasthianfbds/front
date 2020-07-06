@@ -1,0 +1,32 @@
+<app-menu></app-menu>
+<br />
+<div class="dashboard-container">
+  <div class="dashboard-container__title">
+    <h2>Dashboard</h2>
+  </div>
+  <div class="dashboard-container__categories">
+    <h4 class="dashboard-container__categories--title">
+      Quantidade de membros por categoria
+    </h4>
+    <hr />
+    <br />
+    <mat-chip-list
+      aria-label="Fish selection"
+      class="dashboard-container__categories--list"
+    >
+      <ng-container *ngFor="let categorie of categories">
+        <mat-chip
+          class="dashboard-container__categories--list__item"
+          matBadge="{{ categorie.userCount }}"
+        >
+          {{ categorie.name }}
+        </mat-chip>
+      </ng-container>
+    </mat-chip-list>
+    <hr />
+  </div>
+  <br />
+  <div class="dashboard-container__posts">
+    <app-post-container [posts]="posts"></app-post-container>
+  </div>
+</div>

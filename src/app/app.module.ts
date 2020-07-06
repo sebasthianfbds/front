@@ -46,6 +46,9 @@ import {
   NativeDateAdapter,
 } from "@angular/material/core";
 import { formatDate } from "@angular/common";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatRadioModule } from "@angular/material/radio";
+import { DashboardComponent } from './modules/dashboard/dashboard.component';
 
 export const PICK_FORMATS = {
   parse: { dateInput: { month: "numeric", year: "numeric", day: "numeric" } },
@@ -88,6 +91,7 @@ class PickDateAdapter extends NativeDateAdapter {
     FollowSugestionComponent,
     TextAreaComponent,
     SearchComponent,
+    DashboardComponent,
   ],
   imports: [
     MatDatepickerModule,
@@ -112,6 +116,8 @@ class PickDateAdapter extends NativeDateAdapter {
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production,
     }),
+    MatCheckboxModule,
+    MatRadioModule,
   ],
   providers: [
     { provide: DateAdapter, useClass: PickDateAdapter },

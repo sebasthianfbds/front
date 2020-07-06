@@ -1,13 +1,29 @@
 <div class="modal-container">
   <app-generic-card [title]="title">
-    <app-form #appForm [formConfig]="formConfig">
-      <button #registerButton mat-button (click)="handleRegister()">
-        Registrar
-      </button>
+    <section class="type">
+      <mat-radio-group [(ngModel)]="type">
+        <mat-radio-button value="ALUNO">Aluno</mat-radio-button>
+        <mat-radio-button value="PESQUISADOR" style="margin-left: 1rem;"
+          >Pesquisador</mat-radio-button
+        >
+      </mat-radio-group>
+    </section>
 
-      <button mat-button routerLink="/login">
-        Acessar
-      </button>
+    <app-form #appForm [formConfig]="getFormConfig()">
+      <div class="form-action">
+        <button
+          #registerButton
+          mat-button
+          (click)="handleRegister()"
+          *ngIf="type"
+        >
+          Registrar
+        </button>
+
+        <button mat-button routerLink="/login">
+          Voltar
+        </button>
+      </div>
     </app-form>
   </app-generic-card>
 </div>

@@ -3,10 +3,10 @@
     <img
       mat-card-avatar
       src="{{ post.user.imageUrl || 'assets/profile.png' }}"
-      routerLink="/{{ post.user.name }}"
+      routerLink="{{ post.user.name }}"
     />
     <div class="data">
-      <mat-card-title routerLink="/{{ post.user.name }}">{{
+      <mat-card-title routerLink="{{ post.user.name }}">{{
         post.user.name
       }}</mat-card-title>
       <mat-card-subtitle>{{
@@ -24,8 +24,66 @@
   </mat-card-header>
 
   <mat-card-content class="post-text">
-    <div id="div-post-text" contentEditable="{{ post.canEdit }}">
-      {{ post.text }}
+    <div class="item" *ngIf="post.title">
+      <div class="text">Título:</div>
+      <div
+        class="text"
+        id="div-post-title"
+        contentEditable="{{ post.canEdit }}"
+      >
+        {{ post.title }}
+      </div>
+    </div>
+
+    <div class="item" *ngIf="post.url">
+      <div class="text">Url:</div>
+      <div class="text" id="div-post-url" contentEditable="{{ post.canEdit }}">
+        {{ post.url }}
+      </div>
+    </div>
+
+    <div class="item" *ngIf="post.datep">
+      <div class="text">Data Publicação:</div>
+      <div
+        class="text"
+        id="div-post-datep"
+        contentEditable="{{ post.canEdit }}"
+      >
+        {{ post.datep }}
+      </div>
+    </div>
+
+    <div class="item" *ngIf="post.locale">
+      <div class="text">Local:</div>
+      <div
+        class="text"
+        id="div-post-locale"
+        contentEditable="{{ post.canEdit }}"
+      >
+        {{ post.locale }}
+      </div>
+    </div>
+
+    <div class="item" *ngIf="post.wordsKey">
+      <div class="text">Palavras Chaves:</div>
+      <div
+        class="text"
+        id="div-post-wordsKey"
+        contentEditable="{{ post.canEdit }}"
+      >
+        {{ post.wordsKey }}
+      </div>
+    </div>
+
+    <hr />
+    <br />
+
+    <div class="item-desc" *ngIf="post.text">
+      <div><b>Decrição</b></div>
+      <br />
+      <div class="text" id="div-post-text" contentEditable="{{ post.canEdit }}">
+        {{ post.text }}
+      </div>
     </div>
   </mat-card-content>
 
@@ -74,7 +132,7 @@
       <span class="comment-text">
         <span
           style="text-decoration: underline; color: #2078f4; cursor: pointer;"
-          routerLink="/{{ comment.user.name }}"
+          routerLink="{{ comment.user.name }}"
           >{{ comment.user.name }}</span
         >
         {{ comment.text }}

@@ -9,6 +9,8 @@ import { NotLoggedInGuard } from "./shared/guard/not-logged-in.guard";
 import { FeedComponent } from "./shared/components/feed/feed.component";
 import { RegisterComponent } from "./modules/register/register.component";
 import { SearchComponent } from "./modules/search/search.component";
+import { DashboardComponent } from "./modules/dashboard/dashboard.component";
+import { DashboardGuard } from "./shared/guard/dashboard.guard";
 
 const routes: Routes = [
   {
@@ -21,8 +23,14 @@ const routes: Routes = [
     component: RegisterComponent,
     canActivate: [NotLoggedInGuard],
   },
+
   {
-    path: "",
+    path: "dashboard",
+    component: DashboardComponent,
+    canActivate: [DashboardGuard],
+  },
+  {
+    path: "feed",
     component: HomeComponent,
     canActivate: [LoggedInGuard],
     children: [
@@ -40,7 +48,8 @@ const routes: Routes = [
       },
     ],
   },
-  { path: "*", redirectTo: "/login", pathMatch: "full" },
+
+  { path: "**", redirectTo: "login", pathMatch: "full" },
 ];
 
 @NgModule({

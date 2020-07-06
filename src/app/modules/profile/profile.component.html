@@ -52,13 +52,21 @@
     </div>
   </div>
 
-  <app-settings
-    *ngIf="showSettings"
-    (onSubmitChange)="onSubmitChange()"
-  ></app-settings>
+  <div class="settings" *ngIf="showSettings" [@fadeInOut]>
+    <app-settings (onSubmitChange)="onSubmitChange()"></app-settings>
+  </div>
 
   <div *ngIf="settingsService.isPesquisador()">
     {{ userData?.details || "Nenhuma informação adicionada pelo pesquisador." }}
+  </div>
+  <br />
+
+  <div
+    *ngIf="userData.myProfile"
+    style="cursor: pointer; text-decoration: underline; color: blue;"
+    (click)="download()"
+  >
+    {{ userData.pdf }}
   </div>
   <br />
 

@@ -21,16 +21,7 @@ export class FormComponent implements OnInit {
     this._config = config;
     if (config) {
       for (let field of config) {
-        var validators = [];
-        for (let validator of field.validators as string[])
-          if (validator.toLocaleLowerCase() === "required")
-            validators.push(Validators.required);
-          else if (validator.toLocaleLowerCase() === "email")
-            validators.push(Validators.email);
-        this._formGroup.addControl(
-          field.name,
-          new FormControl(field.defaultValue || "", validators)
-        );
+        this.internalConfig(field);
       }
     }
   }
@@ -77,6 +68,21 @@ export class FormComponent implements OnInit {
     }
   }
   onFileSelected(fieldName) {}
+
+  private internalConfig(field) {
+    var validators = [];
+    for (let validator of field.validators as string[])
+      if (validator.toLocaleLowerCase() === "required")
+        validators.push(Validators.required);
+      else if (validator.toLocaleLowerCase() === "email")
+        validators.push(Validators.email);
+
+    this._formGroup.addControl(
+      field.name,
+      new FormControl(field.defaultValue || "", validators)
+    );
+  }
+
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {}

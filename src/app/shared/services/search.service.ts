@@ -10,7 +10,7 @@ export class SearchService {
 
   handleSearch() {
     if (!this.filter) return;
-    this.router.navigate(["/search/profile"], {
+    this.router.navigate(["/feed/search/profile"], {
       queryParams: { name: this.filter },
     });
     this.filter = "";

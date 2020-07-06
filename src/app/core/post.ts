@@ -10,6 +10,11 @@ export interface IPost {
   canEdit: boolean;
   liked: boolean;
   pdf?: string;
+  title: string;
+  datep: string;
+  locale: string;
+  url: string;
+  wordsKey: string;
 }
 
 export interface IPostUser {

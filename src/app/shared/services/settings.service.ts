@@ -5,6 +5,7 @@ import { Observable, throwError } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 import { MonitorService } from "./monitor.service";
 import { SnackbarService } from "./snackbar.service";
+import * as FileSaver from "file-saver";
 
 @Injectable({
   providedIn: "root",
@@ -46,6 +47,7 @@ export class SettingsService {
           this.userData.password = payload.password;
           this.userData.imageUrl = payload.imageUrl;
           this.userData.details = payload.details;
+          this.userData.pdf = payload.pdf;
         }),
         catchError((e) => {
           this.snack.show({ message: e, type: "D" });
@@ -65,12 +67,25 @@ export class SettingsService {
       );
   }
 
-  download() {
-    return this.restService.getFile("user/download");
+  download(name: string) {
+    return this.restService
+      .getFile("user/download")
+      .subscribe((result: any) => {
+        if (result && result.byteLength) {
+          let blob: any = new Blob([result], {
+            type: "text/json; charset=utf-8",
+          });
+          FileSaver.saveAs(blob, name);
+        }
+      });
   }
 
   isPesquisador() {
     return this.userData.type === "PESQUISADOR";
+  }
+
+  isAdm() {
+    return this.userData.type === "ADM";
   }
   constructor(
     private snack: SnackbarService,

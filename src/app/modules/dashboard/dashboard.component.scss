@@ -1,0 +1,33 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0.25rem;
+
+  &__categories {
+    margin-top: 3rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+    &--title {
+      padding: 0 1rem;
+    }
+
+    &--list {
+      padding: 1rem;
+
+      &__item {
+        width: 120px;
+        margin: 15px !important;
+      }
+    }
+  }
+
+  &__posts {
+    width: 50%;
+  }
+}

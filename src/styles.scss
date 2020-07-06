@@ -142,3 +142,10 @@ mat-form-field {
     color: white;
   }
 }
+
+.form-action {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

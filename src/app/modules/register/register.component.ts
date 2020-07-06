@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { UserService } from "src/app/shared/services/user.service";
 import { FormComponent } from "src/app/shared/components/form/form.component";
+import { SnackbarService } from "src/app/shared/services/snackbar.service";
+import { DataService } from "src/app/shared/services/data.service";
 
 @Component({
   selector: "app-register",
@@ -8,14 +10,20 @@ import { FormComponent } from "src/app/shared/components/form/form.component";
   styleUrls: ["./register.component.scss"],
 })
 export class RegisterComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private notify: SnackbarService,
+    private dataService: DataService
+  ) {}
   title = "Registro";
   @ViewChild("appForm", { static: false, read: FormComponent })
   appForm: FormComponent;
   @ViewChild("loginButton", { static: false, read: ElementRef })
   registerButton: ElementRef<HTMLButtonElement>;
 
-  formConfig = [
+  type: "ALUNO" | "PESQUISADOR";
+
+  commonFields = [
     {
       label: "Nome",
       name: "name",
@@ -35,6 +43,12 @@ export class RegisterComponent implements OnInit {
       validators: ["required"],
     },
     {
+      label: "Data de Nascimento",
+      name: "data",
+      type: "date",
+      validators: ["required"],
+    },
+    {
       label: "País",
       name: "pais",
       type: "text",
@@ -46,62 +60,79 @@ export class RegisterComponent implements OnInit {
       type: "text",
       validators: ["required"],
     },
+  ];
+
+  formConfigPesquisador = [
     {
-      label: "Tipo",
-      name: "type",
-      type: "combobox",
-      values: [
-        {
-          value: "PESQUISADOR",
-          label: "Pesquisador",
-        },
-        {
-          value: "ALUNO",
-          label: "Aluno",
-        },
-      ],
+      label: "Instituicao de pesquisa",
+      name: "instituicao",
+      type: "text",
+      validators: ["required"],
+    },
+
+    {
+      label: "Link curriculo",
+      name: "link_curriculo",
+      type: "text",
       validators: ["required"],
     },
     {
-      label: "Data de Nascimento",
-      name: "data",
-      type: "date",
-      validators: [],
-    },
-    {
-      label: "Data inicio carreira",
+      label: "Data inicio carreira cientista de dados",
       name: "datai",
       type: "date",
-      validators: [],
+      validators: ["required"],
+    },
+  ];
+
+  formConfigAluno = [
+    {
+      label: "CPF",
+      name: "cpf",
+      type: "text",
+      validators: ["required"],
+    },
+    {
+      label: "Grau escolaridade",
+      name: "grau_escolaridade",
+      type: "text",
+      validators: ["required"],
     },
     {
       label: "Topicos de interesse",
       name: "interesses",
       type: "multicombobox",
-      values: [
-        { value: "artificial intelligence", label: "artificial intelligence" },
-        { value: "backpropagation", label: "backpropagation" },
-        { value: "algorithm", label: "algorithm" },
-        { value: "binomial distribution", label: "binomial distribution" },
-        { value: "chi-square test", label: "chi-square test" },
-        { value: "Bayesian network", label: "Bayesian network" },
-        { value: "Bayes' Theorem", label: "Bayes' Theorem" },
-        { value: "bias", label: "bias" },
-        { value: "Big Data", label: "Big Data" },
-        { value: "AngularJS", label: "AngularJS" },
-      ],
-      validators: [],
+      values: this.dataService.data,
+      validators: ["required"],
     },
   ];
 
-  handleRegister() {
-    if (this.appForm.invalid) return;
-    let data = new Date(this.appForm.value["data"]).getFullYear();
-    if (data > 2002) return;
-    let pais = (this.appForm.value["pais"] || ("" as string)).toUpperCase();
-    if (pais !== "BRASIL") return;
-    this.userService.register(this.appForm.value).subscribe();
+  getFormConfig() {
+    if (this.type === "ALUNO") return this.formConfigAluno;
+    if (this.type === "PESQUISADOR") return this.formConfigPesquisador;
   }
 
-  ngOnInit(): void {}
+  handleRegister() {
+    if (this.appForm.invalid)
+      return this.notify.show({ message: "Formulario incompleto.", type: "W" });
+    let data = new Date(this.appForm.value["data"]).getFullYear();
+    if (data > 2002)
+      return this.notify.show({
+        message: "Apenas maiores de 18 anos",
+        type: "W",
+      });
+    let pais = (this.appForm.value["pais"] || ("" as string)).toUpperCase();
+    if (pais !== "BRASIL")
+      return this.notify.show({ message: "Pais deve ser brasil.", type: "W" });
+
+    this.userService
+      .register({ ...this.appForm.value, type: this.type })
+      .subscribe();
+  }
+
+  ngOnInit(): void {
+    this.formConfigPesquisador = this.commonFields.concat(
+      this.formConfigPesquisador
+    );
+    this.formConfigAluno = this.commonFields.concat(this.formConfigAluno);
+  }
 }

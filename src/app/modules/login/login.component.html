@@ -1,13 +1,15 @@
 <div class="modal-container">
   <app-generic-card [title]="title">
     <app-form #appForm [formConfig]="formConfig">
-      <button #loginButton mat-button (click)="handleLogin()">
-        Logar
-      </button>
+      <div class="form-action">
+        <button #loginButton mat-button (click)="handleLogin()">
+          Logar
+        </button>
 
-      <button mat-button routerLink="/register">
-        Registrar
-      </button>
+        <button mat-button routerLink="/register">
+          Registrar
+        </button>
+      </div>
     </app-form>
   </app-generic-card>
 </div>
